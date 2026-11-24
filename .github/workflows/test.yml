@@ -30,7 +30,10 @@ name: test
 #                 to the other.
 # The two lists below are duplicated because GitHub Actions does not support YAML
 # anchors. Keep them identical, and identical to the `paths` in repo-scan.yml
-# minus '.github/**'.
+# minus '.github/**' -- except for the two paths repo-scan.yml adds for its agent
+# instructions check, '.gitattributes' and '.github/scripts/Test-AgentInstructions.ps1'
+# (program#230): this workflow keeps running on '.gitattributes', and the script
+# is under '.github/**'.
 on:
   push:
     branches: [main]
