@@ -24,6 +24,11 @@ name: repo-scan
 # `.github/**` is deliberately absent. A workflow file is `.yml`, which appears
 # in neither extension list the scans use, and no test opens one — so a
 # workflow-only change legitimately runs nothing.
+#
+# One exception, program#230: the agent instruction check below reads
+# `.gitattributes` and runs `.github/scripts/Test-AgentInstructions.ps1`, so
+# those two paths fire this workflow too. `CLAUDE.md` and `AGENTS.md` are
+# already covered by `*.md`.
 on:
   push:
     branches: [main]
@@ -31,11 +36,15 @@ on:
       - 'docs/**'
       - '.claude/**'
       - '*.md'
+      - '.gitattributes'
+      - '.github/scripts/Test-AgentInstructions.ps1'
   pull_request:
     paths:
       - 'docs/**'
       - '.claude/**'
       - '*.md'
+      - '.gitattributes'
+      - '.github/scripts/Test-AgentInstructions.ps1'
   workflow_dispatch:
 
 # One CI job at a time on win11-01; see test.yml for why, and keep
@@ -51,6 +60,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+
+      # program#230: CLAUDE.md must import AGENTS.md on its first line, and both
+      # files must be pinned to eol=lf, the layout 8005-agv-protocol piloted
+      # (program#228). Pure input, under a second, ahead of the build.
+      - name: Agent instructions
+        timeout-minutes: 1
+        shell: pwsh
+        run: pwsh -NoProfile -File ./.github/scripts/Test-AgentInstructions.ps1
 
       # Never assert on dotnet's console output: the guest's locale is zh-CN and
       # it prints 已通过! rather than Passed!. The exit code is the contract.
