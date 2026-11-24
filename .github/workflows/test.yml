@@ -3,7 +3,8 @@ name: test
 # Runs on the self-hosted runner on win11-01 (factory server Hyper-V guest).
 # There is no hosted-runner fallback — this suite is exactly why: it asserts on a
 # real desktop, an Oracle client and wall-clock timing that a hosted machine
-# cannot provide. See the workspace root CLAUDE.md.
+# cannot provide. See the CI section of 8005-agv-program
+# docs/agents/workspace-rules.md (the shared workspace rules, program#228).
 #
 # **This workflow does not run the golden renderer.** It runs the repository's
 # default test command and nothing else. The golden-renderer Preview and

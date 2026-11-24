@@ -178,7 +178,7 @@ collides with someone is better told at once.
 | Workflow | Runner | Fires on |
 | --- | --- | --- |
 | `test.yml` | `headless` | any push **except** `.github/**`, `docs/**`, `.claude/**`, root `*.md` |
-| `repo-scan.yml` | `headless` | `docs/**`, `.claude/**`, root `*.md` |
+| `repo-scan.yml` | `headless` | `docs/**`, `.claude/**`, root `*.md`, `.gitattributes`, `.github/scripts/Test-AgentInstructions.ps1` |
 | `desktop-tests.yml` | `golden-renderer` | `MesIngest.Watch/**`, `MesIngest.Tests/Watch*`, `**/*.xaml` |
 | `golden-renderer.yml` | `golden-renderer` | nightly 03:00 (`watch-vm-tests`, then the pixel `verify`), and manual dispatch |
 
