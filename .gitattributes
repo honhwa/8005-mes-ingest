@@ -4,3 +4,10 @@
 # 未批准。规则从拆分前 8005---AGV 的根 .gitattributes 原样继承。
 queries/mes-task-union/query.sql text eol=crlf
 queries/sublot-box-count/query.sql -text -diff
+
+# The agent instruction pair is pinned together, so both files have the same
+# bytes on every checkout, Windows clones included. CLAUDE.md imports AGENTS.md
+# on its first line; .github/scripts/Test-AgentInstructions.ps1 checks both rules
+# (program#230).
+AGENTS.md text eol=lf
+CLAUDE.md text eol=lf

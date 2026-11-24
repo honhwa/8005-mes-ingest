@@ -3,7 +3,8 @@ name: test
 # Runs on the self-hosted runner on win11-01 (factory server Hyper-V guest).
 # There is no hosted-runner fallback — this suite is exactly why: it asserts on a
 # real desktop, an Oracle client and wall-clock timing that a hosted machine
-# cannot provide. See the workspace root CLAUDE.md.
+# cannot provide. See the CI section of 8005-agv-program
+# docs/agents/workspace-rules.md (the shared workspace rules, program#228).
 #
 # **This workflow does not run the golden renderer.** It runs the repository's
 # default test command and nothing else. The golden-renderer Preview and
@@ -29,7 +30,10 @@ name: test
 #                 to the other.
 # The two lists below are duplicated because GitHub Actions does not support YAML
 # anchors. Keep them identical, and identical to the `paths` in repo-scan.yml
-# minus '.github/**'.
+# minus '.github/**' -- except for the two paths repo-scan.yml adds for its agent
+# instructions check, '.gitattributes' and '.github/scripts/Test-AgentInstructions.ps1'
+# (program#230): this workflow keeps running on '.gitattributes', and the script
+# is under '.github/**'.
 on:
   push:
     branches: [main]
